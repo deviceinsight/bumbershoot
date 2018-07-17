@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.deviceinsight</groupId>
@@ -16,7 +15,8 @@
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>2.0.3.RELEASE</version>
-		<relativePath /> <!-- lookup parent from repository -->
+		<relativePath />
+		<!-- lookup parent from repository -->
 	</parent>
 
 	<properties>
@@ -33,7 +33,7 @@
 		<docker.baseImage>openjdk:10-jdk</docker.baseImage>
 
 		<helm.plugin.version>2.6</helm.plugin.version>
-		<helm.downloadUrl>https://storage.googleapis.com/kubernetes-helm/helm-v2.9.0-linux-amd64.tar.gz</helm.downloadUrl>
+		<helm.swift.version>0.8.1</helm.swift.version>
 	</properties>
 
 	<dependencies>
@@ -98,6 +98,31 @@
 		</dependencies>
 	</dependencyManagement>
 
+	<profiles>
+		<profile>
+			<id>linux-profile</id>
+			<activation>
+				<os>
+					<family>unix</family>
+				</os>
+			</activation>
+			<properties>
+				<helm.downloadUrl>https://storage.googleapis.com/kubernetes-helm/helm-v2.9.1-linux-amd64.tar.gz</helm.downloadUrl>
+			</properties>
+		</profile>
+		<profile>
+			<id>mac-profile</id>
+			<activation>
+				<os>
+					<family>mac</family>
+				</os>
+			</activation>
+			<properties>
+				<helm.downloadUrl>https://storage.googleapis.com/kubernetes-helm/helm-v2.9.1-darwin-amd64.tar.gz</helm.downloadUrl>
+			</properties>
+		</profile>
+	</profiles>
+
 	<build>
 		<plugins>
 			<plugin>
@@ -154,7 +179,7 @@
 				<artifactId>helm-maven-plugin</artifactId>
 				<version>${helm.plugin.version}</version>
 				<configuration>
-					<chartDirectory>${project.basedir}/src/main/helm/</chartDirectory>
+					<chartDirectory>${project.build.directory}/helm-charts</chartDirectory>
 					<chartVersion>${project.version}</chartVersion>
 					<uploadRepoStable>
 						<name>stable-repo</name>
@@ -168,17 +193,17 @@
 						</helmRepo>
 					</helmExtraRepos>
 				</configuration>
-				<!-- 
 				<executions>
 					<execution>
-						<id>helm-lint</id>
-						<phase>verify</phase>
+						<id>helm-package</id>
+						<phase>package</phase>
 						<goals>
 							<goal>init</goal>
 							<goal>dependency-build</goal>
 							<goal>package</goal>
 						</goals>
 					</execution>
+					<!-- 
 					<execution>
 						<id>helm-upload</id>
 						<phase>deploy</phase>
@@ -186,9 +211,16 @@
 							<goal>helm:upload</goal>
 						</goals>
 					</execution>
+				 	-->
 				</executions>
-				 -->
 			</plugin>
 		</plugins>
+		<resources>
+			<resource>
+				<directory>src/main/helm</directory>
+				<filtering>true</filtering>
+				<targetPath>${project.build.directory}/helm-charts</targetPath>
+			</resource>
+		</resources>
 	</build>
 </project>

@@ -6,14 +6,15 @@ deployment:
     pullPolicy: IfNotPresent
   replicaCount: 1
   singletonPerNode: true
-  ## resources required by the application
-  resources:
-    requests:
-      cpu: 200m
-      memory: 150Mi
-    limits:
-      memory: 300Mi
-  javaOptions: -Xms128m -Xmx256m
+
+## resources required by the application
+resources:
+  requests:
+    cpu: 50m
+    memory: 60Mi
+  limits:
+    memory: 300Mi
+javaOptions: -Xms32m -Xmx256m
 
 probes:
   ## probes.readinessProbe for the application. This is directly expanded into the deployment chart
