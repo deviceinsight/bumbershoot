@@ -37,7 +37,7 @@ spec:
 {{- end }}
       containers:
         - name: {{ .Chart.Name }}
-          image: "{{ .Values.deployment.image.repository }}/bumbershoot:${project.version}"
+          image: "{{ .Values.deployment.image.repository }}/bumbershoot:@project.version@
           imagePullPolicy: {{ .Values.deployment.image.pullPolicy }}
           ports:
             - name: http
