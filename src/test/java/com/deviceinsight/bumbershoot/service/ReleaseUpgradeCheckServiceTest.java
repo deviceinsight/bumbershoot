@@ -2,6 +2,7 @@ package com.deviceinsight.bumbershoot.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.assertj.core.util.Maps;
@@ -36,6 +37,8 @@ public class ReleaseUpgradeCheckServiceTest {
 				.build();
 
 		var chart = Chart.builder()
+				.dependencies(Collections.emptyList())
+				.templates(Collections.emptyList())
 				.metaData(metaData)
 				.build();
 
@@ -45,6 +48,8 @@ public class ReleaseUpgradeCheckServiceTest {
 				.build();
 
 		var managedChart = ManagedChart.builder()
+				.defaultUpgradePolicy(UpgradePolicy.MINOR)
+				.upgradePolicies(Collections.emptyMap())
 				.name(metaData.getName())
 				.build();
 		var managedCharts = Lists.newArrayList(managedChart);
@@ -73,6 +78,8 @@ public class ReleaseUpgradeCheckServiceTest {
 				.build();
 
 		var chart = Chart.builder()
+				.dependencies(Collections.emptyList())
+				.templates(Collections.emptyList())
 				.metaData(metaData)
 				.build();
 
@@ -82,6 +89,8 @@ public class ReleaseUpgradeCheckServiceTest {
 				.build();
 
 		var managedChart = ManagedChart.builder()
+				.defaultUpgradePolicy(UpgradePolicy.MINOR)
+				.upgradePolicies(Collections.emptyMap())
 				.name(metaData.getName())
 				.build();
 		var managedCharts = Lists.newArrayList(managedChart);
@@ -113,6 +122,8 @@ public class ReleaseUpgradeCheckServiceTest {
 
 		var subSubVersion = Version.valueOf("0.2.0");
 		var subSubChart = Chart.builder()
+				.dependencies(Collections.emptyList())
+				.templates(Collections.emptyList())
 				.metaData(metaData.toBuilder()
 						.name("subsub")
 						.version(subSubVersion.toString())
@@ -121,6 +132,8 @@ public class ReleaseUpgradeCheckServiceTest {
 
 		var subVersion = Version.valueOf("0.2.0-SNAPSHOT");
 		var subChart = Chart.builder()
+				.dependencies(Collections.emptyList())
+				.templates(Collections.emptyList())
 				.metaData(metaData.toBuilder()
 						.name("sub")
 						.version(subVersion.toString())
@@ -128,6 +141,8 @@ public class ReleaseUpgradeCheckServiceTest {
 				.dependencies(Lists.newArrayList(subSubChart))
 				.build();
 		var chart = Chart.builder()
+				.dependencies(Collections.emptyList())
+				.templates(Collections.emptyList())
 				.metaData(metaData)
 				.dependencies(Lists.newArrayList(subChart))
 				.build();
@@ -138,6 +153,8 @@ public class ReleaseUpgradeCheckServiceTest {
 				.build();
 
 		var managedChart = ManagedChart.builder()
+				.defaultUpgradePolicy(UpgradePolicy.MINOR)
+				.upgradePolicies(Collections.emptyMap())
 				.name(metaData.getName())
 				.build();
 		var managedCharts = Lists.newArrayList(managedChart);

@@ -1,19 +1,25 @@
 ---
+## replicaCount amount of replicas to start 
 replicaCount: 1
 deployment:
   image:
-    repository: "deviceinsight"
+    ## deployment.image.repositoy repository to pull bumbershoot image from
+    repository: deviceinsight
+    ## deployment.image.pullPolicy docker pull policy to apply for the bumbershoot image
     pullPolicy: IfNotPresent
-  replicaCount: 1
+  ## deployment.singletonPerNode flag if deployment should guarantee that there is a single replica per node
   singletonPerNode: true
-  ## resources required by the application
-  resources:
-    requests:
-      cpu: 200m
-      memory: 150Mi
-    limits:
-      memory: 300Mi
-  javaOptions: -Xms128m -Xmx256m
+
+## resources required by the application. This is directly expanded into the deployment chart
+resources:
+  requests:
+    cpu: 50m
+    memory: 60Mi
+  limits:
+    memory: 300Mi
+
+## javaOptions jvm arguments send to the java process
+javaOptions: -Xms32m -Xmx256m
 
 probes:
   ## probes.readinessProbe for the application. This is directly expanded into the deployment chart
@@ -33,21 +39,37 @@ probes:
     timeoutSeconds: 5
     failureThreshold: 3
 
+service:
+  ## service.type type of service to install
+  type: ClusterIP
+  ## service.port port the service should expose as http port
+  port: 8080
+
+ingress:
+  ## ingress.enabled if 'true' install an ingress route
+  enabled: true
+  ## ingress.path http path bumbershoot should be exposed at. If this is changed, remember you will need a rewrite annoation.
+  path: /api/charts
+  ## ingress.annotations annotations to inject in the ingress. Can be used for authentication or rewrites. Check the documentation of your ingress controller
+#  annotations:
+#    nginx.ingress.kubernetes.io/rewrite-target: /
+
 logging:
+  ## logging.level.<namespace> logging level to apply for the given namespace
   level:
     com.deviceinsight.bumbershoot: DEBUG
 
+## charts that bumbershoot should manage
 managedCharts: []
 #  - name: umbrella-chart
 #    defaultUpgradePolicy: MINOR
 #    upgradePolicies:
-#      ng-platform: NEVER
+#      sub-chart: NEVER
 #    repository:
 #      url: https://charts.sample
 #      type: chartmuseum
 
-resources: {}
-
+## nodeSelector to apply to the deployment
 nodeSelector: {}
 
 ################

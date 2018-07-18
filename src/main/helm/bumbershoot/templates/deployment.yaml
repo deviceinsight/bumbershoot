@@ -37,7 +37,7 @@ spec:
 {{- end }}
       containers:
         - name: {{ .Chart.Name }}
-          image: "{{ .Values.deployment.image.repository }}/bumbershoot:@project.version@
+          image: "{{ .Values.deployment.image.repository }}/bumbershoot:@project.version@"
           imagePullPolicy: {{ .Values.deployment.image.pullPolicy }}
           ports:
             - name: http
@@ -51,7 +51,7 @@ spec:
 {{ toYaml .Values.resources | indent 12 }}
           env:
             - name: JAVA_OPTIONS
-              value: {{ .Values.deployment.javaOptions }}
+              value: "{{ .Values.javaOptions }}"
             - name: DNS_CACHE_TTL
               value: "3"
             - name: DNS_CACHE_NEGATIVE_TTL
@@ -72,10 +72,10 @@ spec:
                   }
                 }
 
-    {{- with .Values.nodeSelector }}
+{{- with .Values.nodeSelector }}
       nodeSelector:
 {{ toYaml . | indent 8 }}
-    {{- end }}
+{{- end }}
 
 {{- if or .Values.deployment.imagePullSecret .Values.global.imagePullSecret }}
       imagePullSecrets:
