@@ -12,17 +12,17 @@ To install bumbershoot you need:
 
 > *Note*: Bumbershoot is a young project.
 > It was only tested with Kubernetes 1.9.2 and Tiller 2.9.
-> Probably it is also compatible to other Kubernetes and Tiller version. 
-> Just try a different [swift](https://github.com/appscode/swift) version: `mvn clean package -Dhelm.swift.version=0.7.3`
+> Probably it is also compatible to other Kubernetes and Tiller versions. 
+> Just try a different [swift](https://github.com/appscode/swift) version: `mvn clean package -Dhelm.swift.version=<version>`
 
 ## Installation via helm
 
 Bumbershoot can be installed via helm.
-It will automatically include swift as tiller proxy.
+It will automatically include [swift](https://github.com/appscode/swift) as tiller proxy.
 
 ### Build chart
 
-Currently bumbershoot is not available in a public chart repository (see #3). 
+Currently bumbershoot is not available in a public chart repository (see [#3](/deviceinsight/bumbershoot/issues/3)). 
 
 Therefore you need to build it via `mvn clean package`.
 Afterwards you can find the generated chart under `target/helm/repo/bumbershoot-<version>.tgz`. 
