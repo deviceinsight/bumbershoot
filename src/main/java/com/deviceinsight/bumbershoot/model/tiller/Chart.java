@@ -22,10 +22,16 @@ public class Chart {
 	@JsonProperty("metadata")
 	private ChartMetaData metaData;
 
-	@Builder.Default
+	/*
+	 * FIXME: NPE for no args constructor. Enable again when lombok 1.8.1 is available
+	 * @Builder.Default
+	 */
 	private List<Template> templates = new ArrayList<>();
 
-	@Builder.Default
+	/*
+	 * FIXME: NPE for no args constructor. Enable again when lombok 1.8.1 is available
+	 * @Builder.Default
+	 */
 	private List<Chart> dependencies = new ArrayList<>();
 
 	@JsonProperty("values")
