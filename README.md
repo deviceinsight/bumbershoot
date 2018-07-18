@@ -29,4 +29,4 @@ Check out the [changelog](CHANGELOG.md) for the latest releases and changes.
 
 ## Roadmap
 
-If you want to know what features are planned for the future or get an idea for contribution, check out the [open feature requests](/deviceinsight/bumbershoot/issues?q=is%3Aissue+is%3Aopen+label%3Aenhancement)
+If you want to know what features are planned for the future or get an idea for contribution, check out the [open feature requests](https://github.com/deviceinsight/bumbershoot/issues?q=is%3Aissue+is%3Aopen+label%3Aenhancement)
