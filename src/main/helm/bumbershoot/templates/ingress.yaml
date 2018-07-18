@@ -1,0 +1,31 @@
+{{ if .Values.ingress.enabled }}
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: {{ template "bumbershoot.fullname" . }}
+  labels:
+    app: {{ template "bumbershoot.name" . }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+  {{- if .Values.ingress.annotations }}
+  annotations:
+{{ .Values.ingress.annotations | toYaml | indent 4}}
+  {{- end }}
+spec:
+  {{- if .Values.ingress.tls }}
+  tls:
+{{ .Values.ingress.tls | toYaml | indent 4 }}
+  {{- end }}  
+  rules:
+  - http:
+      paths: 
+      - path: {{ .Values.ingress.path }}
+        backend:
+          serviceName: {{ template "bumbershoot.fullname" . }}
+          servicePort: {{ .Values.service.port }}
+  {{- if .Values.ingress.host }}
+    host: {{ .Values.ingress.host | quote }}
+  {{- end }}
+{{- end }}
