@@ -30,6 +30,8 @@ import com.deviceinsight.bumbershoot.model.ChartUpdateNotification;
 import com.deviceinsight.bumbershoot.model.tiller.Chart;
 import com.deviceinsight.bumbershoot.model.tiller.ChartMetaData;
 import com.deviceinsight.bumbershoot.model.tiller.Release;
+import com.deviceinsight.bumbershoot.service.strategy.LatestUmbrellaChartUpgradeStrategy;
+
 import com.github.zafarkhaja.semver.Version;
 
 @RunWith(MockitoJUnitRunner.Silent.class)
@@ -107,7 +109,19 @@ public class LatestUmbrellaChartUpgradeStrategyTest {
 	}
 	
 	@Test
-	public void test_check_can_upgrade_umbrella_chart_should_return_false_if_there_is_newer_snapshot() {
+	public void test_check_can_upgrade_umbrella_chart_should_return_false_if_there_is_newer_minor_snapshot() {
+		Version currentVersion = Version.valueOf("0.2.0");
+		Collection<Version> availableVersions = Arrays.asList(
+				Version.valueOf("0.1.0"),
+				Version.valueOf("0.2.0"),
+				Version.valueOf("0.3.0-SNAPSHOT")
+		);
+		
+		assertThat(strategy.canUpgradeUmbrellaChart(currentVersion, availableVersions)).isFalse();
+	}
+	
+	@Test
+	public void test_check_can_upgrade_umbrella_chart_should_return_true_if_there_is_newer_snapshot_build() {
 		Version currentVersion = Version.valueOf("0.3.0-SNAPSHOT");
 		Collection<Version> availableVersions = Arrays.asList(
 				Version.valueOf("0.1.0"),
@@ -116,7 +130,7 @@ public class LatestUmbrellaChartUpgradeStrategyTest {
 				Version.valueOf("0.3.0-SNAPSHOT-bumbershoot.1")
 		);
 		
-		assertThat(strategy.canUpgradeUmbrellaChart(currentVersion, availableVersions)).isFalse();
+		assertThat(strategy.canUpgradeUmbrellaChart(currentVersion, availableVersions)).isTrue();
 	}
 	
 	@Test
@@ -133,7 +147,7 @@ public class LatestUmbrellaChartUpgradeStrategyTest {
 	}
 	
 	@Test
-	public void test_upgrade_umbrella_chart_should_use_bumbershoot_snapshot() throws ChartUpgradeException, ChartInvalidException {
+	public void test_upgrade_umbrella_chart_should_append_bumbershoot_snapshot() throws ChartUpgradeException, ChartInvalidException {
 		Version currentVersion = Version.valueOf("0.3.0-SNAPSHOT");
 		Collection<Version> availableVersions = Arrays.asList(
 				Version.valueOf("0.1.0"),
@@ -170,6 +184,29 @@ public class LatestUmbrellaChartUpgradeStrategyTest {
 		strategy.upgradeUmbrellaChart(release, repository, update, availableVersions, (url, r) -> deployed.set(true));
 		
 		verify(chartModifier).setChartVersion(any(), any(), eq(Version.valueOf("0.4.0-SNAPSHOT-bumbershoot.1")));
+		
+		assertThat(deployed.get()).isTrue();
+	}
+	
+	@Test
+	public void test_upgrade_umbrella_chart_should_upgrade_latest_snapshot() throws ChartUpgradeException, ChartInvalidException {
+		Version currentVersion = Version.valueOf("0.3.0-SNAPSHOT-bumbershoot.1");
+		Collection<Version> availableVersions = Arrays.asList(
+				Version.valueOf("0.1.0"),
+				Version.valueOf("0.2.0"),
+				Version.valueOf("0.3.0-SNAPSHOT"),
+				Version.valueOf("0.3.0-SNAPSHOT-bumbershoot.1"),
+				Version.valueOf("0.3.0-SNAPSHOT-bumbershoot.2")
+		);
+		
+		when(chartMeta.getVersion()).thenReturn(currentVersion.toString());
+		ChartIdentifier identifier = new ChartIdentifier("sub", "0.2.0");
+		when(update.getChart()).thenReturn(identifier);
+		
+		AtomicBoolean deployed = new AtomicBoolean(false);
+		strategy.upgradeUmbrellaChart(release, repository, update, availableVersions, (url, r) -> deployed.set(true));
+		
+		verify(chartModifier).setChartVersion(any(), any(), eq(Version.valueOf("0.3.0-SNAPSHOT-bumbershoot.3")));
 		
 		assertThat(deployed.get()).isTrue();
 	}

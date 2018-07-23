@@ -23,6 +23,8 @@ import com.deviceinsight.bumbershoot.model.ReleaseUpgradeResult.Status;
 import com.deviceinsight.bumbershoot.model.tiller.Chart;
 import com.deviceinsight.bumbershoot.model.tiller.ChartUpgrade;
 import com.deviceinsight.bumbershoot.model.tiller.Release;
+import com.deviceinsight.bumbershoot.service.strategy.SubChartUpgradeStrategy;
+
 import com.github.zafarkhaja.semver.Version;
 
 import feign.FeignException;

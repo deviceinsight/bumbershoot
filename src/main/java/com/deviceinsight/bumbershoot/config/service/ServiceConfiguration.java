@@ -6,8 +6,8 @@ import com.deviceinsight.bumbershoot.infrastructure.tiller.SwiftTillerClient;
 import com.deviceinsight.bumbershoot.service.ChartArchiveModifier;
 import com.deviceinsight.bumbershoot.service.ReleaseUpgradeCheckService;
 import com.deviceinsight.bumbershoot.service.ReleaseUpgradePerformService;
-import com.deviceinsight.bumbershoot.service.LatestUmbrellaChartUpgradeStrategy;
-import com.deviceinsight.bumbershoot.service.SubChartUpgradeStrategy;
+import com.deviceinsight.bumbershoot.service.strategy.LatestUmbrellaChartUpgradeStrategy;
+import com.deviceinsight.bumbershoot.service.strategy.SubChartUpgradeStrategy;
 
 import java.util.List;
 
