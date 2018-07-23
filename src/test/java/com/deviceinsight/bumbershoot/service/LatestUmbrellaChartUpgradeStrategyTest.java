@@ -33,7 +33,7 @@ import com.deviceinsight.bumbershoot.model.tiller.Release;
 import com.github.zafarkhaja.semver.Version;
 
 @RunWith(MockitoJUnitRunner.Silent.class)
-public class LatestUmbrellaChartUpgradeStrageyTest {
+public class LatestUmbrellaChartUpgradeStrategyTest {
 	
 	@Mock
 	private Release release;
@@ -59,7 +59,7 @@ public class LatestUmbrellaChartUpgradeStrageyTest {
 	private ChartRepositoryClientFactory clientFactory;
 	
 	@InjectMocks
-	private LatestUmbrellaChartUpgradeStragey strategy;
+	private LatestUmbrellaChartUpgradeStrategy strategy;
 	
 	@Before
 	public void mockBehavior() throws MalformedURLException, UnsupportedChartRepositoryType {

@@ -6,7 +6,7 @@ import com.deviceinsight.bumbershoot.infrastructure.tiller.SwiftTillerClient;
 import com.deviceinsight.bumbershoot.service.ChartArchiveModifier;
 import com.deviceinsight.bumbershoot.service.ReleaseUpgradeCheckService;
 import com.deviceinsight.bumbershoot.service.ReleaseUpgradePerformService;
-import com.deviceinsight.bumbershoot.service.LatestUmbrellaChartUpgradeStragey;
+import com.deviceinsight.bumbershoot.service.LatestUmbrellaChartUpgradeStrategy;
 import com.deviceinsight.bumbershoot.service.SubChartUpgradeStrategy;
 
 import java.util.List;
@@ -33,10 +33,10 @@ public class ServiceConfiguration {
 	}
 
 	@Bean
-	public LatestUmbrellaChartUpgradeStragey latestUmbrellaChartUpgradeStragey(
+	public LatestUmbrellaChartUpgradeStrategy latestUmbrellaChartUpgradeStragey(
 			ChartRepositoryClientFactory chartRepositoryClientFactory) {
 
-		return new LatestUmbrellaChartUpgradeStragey(chartRepositoryClientFactory, chartArchiveModifier());
+		return new LatestUmbrellaChartUpgradeStrategy(chartRepositoryClientFactory, chartArchiveModifier());
 	}
 
 	@Bean

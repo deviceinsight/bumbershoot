@@ -24,11 +24,11 @@ import lombok.extern.slf4j.Slf4j;
  * is deployed.
  */
 @Slf4j
-public class LatestUmbrellaChartUpgradeStragey extends SubChartUpgradeStrategy {
+public class LatestUmbrellaChartUpgradeStrategy extends SubChartUpgradeStrategy {
 
 	private final ChartArchiveModifier archiveModifier;
 
-	public LatestUmbrellaChartUpgradeStragey(ChartRepositoryClientFactory chartRepositoryClientFactory,
+	public LatestUmbrellaChartUpgradeStrategy(ChartRepositoryClientFactory chartRepositoryClientFactory,
 			ChartArchiveModifier archiveModifier) {
 
 		super(chartRepositoryClientFactory);
