@@ -1,6 +1,0 @@
----
-
-dependencies:
-  - name: swift
-    version: @helm.swift.version@
-    repository: https://charts.appscode.com/stable/
