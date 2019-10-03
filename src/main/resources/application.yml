@@ -11,4 +11,4 @@ feign:
 ribbon:
   eureka:
     enabled: false
-    
+
