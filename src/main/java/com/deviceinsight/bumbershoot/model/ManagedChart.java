@@ -23,18 +23,10 @@ public class ManagedChart {
 	@NotNull
 	private ChartRepository repository;
 
-	/*
-	 * FIXME: NPE for no args constructor. Enable again when lombok 1.8.1 is available
-	 * @Builder.Default
-	 */
+	 @Builder.Default
 	private UpgradePolicy defaultUpgradePolicy = UpgradePolicy.MINOR;
 
-	// upgrade policies for subcharts. Key is subchart name
-	
-	/*
-	 * FIXME: NPE for no args constructor. Enable again when lombok 1.8.1 is available
-	 * @Builder.Default
-	 */
+	@Builder.Default
 	private Map<String, UpgradePolicy> upgradePolicies = new HashMap<>();
 
 	public enum UpgradePolicy {

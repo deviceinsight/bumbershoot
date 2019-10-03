@@ -14,7 +14,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.0.3.RELEASE</version>
+		<version>2.1.9.RELEASE</version>
 		<relativePath />
 		<!-- lookup parent from repository -->
 	</parent>
@@ -22,17 +22,17 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<java.version>10</java.version>
+		<java.version>12</java.version>
 
-		<spring-cloud.version>Finchley.RELEASE</spring-cloud.version>
+		<spring-cloud.version>Greenwich.SR3</spring-cloud.version>
 		<guava.version>23.0</guava.version>
 		<semver.version>0.9.0</semver.version>
-		<commons-compress.version>1.17</commons-compress.version>
+		<commons-compress.version>1.19</commons-compress.version>
 
-		<docker.plugin.version>0.26.0</docker.plugin.version>
-		<docker.baseImage>openjdk:10-jdk</docker.baseImage>
+		<docker.plugin.version>0.31.0</docker.plugin.version>
+		<docker.baseImage>openjdk:12-jdk</docker.baseImage>
 
-		<helm.plugin.version>2.6</helm.plugin.version>
+		<helm.plugin.version>4.12</helm.plugin.version>
 		<helm.swift.version>0.8.1</helm.swift.version>
 	</properties>
 
@@ -45,6 +45,11 @@
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-openfeign</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-netflix-ribbon</artifactId>
+		</dependency>
+
 		<dependency>
 			<groupId>com.squareup.okhttp3</groupId>
 			<artifactId>okhttp</artifactId>
@@ -107,7 +112,7 @@
 				</os>
 			</activation>
 			<properties>
-				<helm.downloadUrl>https://storage.googleapis.com/kubernetes-helm/helm-v2.9.1-linux-amd64.tar.gz</helm.downloadUrl>
+				<helm.downloadUrl>https://storage.googleapis.com/kubernetes-helm/helm-v2.14.3-linux-amd64.tar.gz</helm.downloadUrl>
 			</properties>
 		</profile>
 		<profile>
@@ -118,7 +123,7 @@
 				</os>
 			</activation>
 			<properties>
-				<helm.downloadUrl>https://storage.googleapis.com/kubernetes-helm/helm-v2.9.1-darwin-amd64.tar.gz</helm.downloadUrl>
+				<helm.downloadUrl>https://storage.googleapis.com/kubernetes-helm/helm-v2.14.3-darwin-amd64.tar.gz</helm.downloadUrl>
 			</properties>
 		</profile>
 	</profiles>
