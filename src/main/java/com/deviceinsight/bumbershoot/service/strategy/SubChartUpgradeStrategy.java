@@ -1,4 +1,4 @@
-package com.deviceinsight.bumbershoot.service;
+package com.deviceinsight.bumbershoot.service.strategy;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -18,6 +18,8 @@ import com.deviceinsight.bumbershoot.model.ChartRepository;
 import com.deviceinsight.bumbershoot.model.ChartUpdateNotification;
 import com.deviceinsight.bumbershoot.model.tiller.ChartMetaData;
 import com.deviceinsight.bumbershoot.model.tiller.Release;
+import com.deviceinsight.bumbershoot.service.ChartArchiveModifier;
+
 import com.github.zafarkhaja.semver.Version;
 
 import lombok.extern.slf4j.Slf4j;
@@ -26,9 +28,13 @@ import lombok.extern.slf4j.Slf4j;
 public abstract class SubChartUpgradeStrategy {
 
 	private final ChartRepositoryClientFactory chartRepositoryClientFactory;
+	protected final ChartArchiveModifier archiveModifier;
 
-	public SubChartUpgradeStrategy(ChartRepositoryClientFactory chartRepositoryClientFactory) {
+	public SubChartUpgradeStrategy(ChartRepositoryClientFactory chartRepositoryClientFactory, 
+			ChartArchiveModifier archiveModifier) {
+		
 		this.chartRepositoryClientFactory = chartRepositoryClientFactory;
+		this.archiveModifier = archiveModifier;
 	}
 
 	public abstract boolean canUpgradeUmbrellaChart(Version currentVersion, Collection<Version> availableVersions);
@@ -83,7 +89,7 @@ public abstract class SubChartUpgradeStrategy {
 	
 	
 	@FunctionalInterface
-	static interface ChartDeployFunction {
+	public static interface ChartDeployFunction {
 		
 		void deployChart(String chartUrl, Release release) throws ChartUpgradeException;
 		

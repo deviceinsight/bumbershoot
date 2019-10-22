@@ -36,6 +36,8 @@ import com.deviceinsight.bumbershoot.model.tiller.Release;
 import com.deviceinsight.bumbershoot.model.tiller.ReleaseContent;
 import com.deviceinsight.bumbershoot.model.tiller.ReleaseInfo;
 import com.deviceinsight.bumbershoot.model.tiller.ReleaseStatus;
+import com.deviceinsight.bumbershoot.service.strategy.SubChartUpgradeStrategy;
+
 import com.google.common.collect.Lists;
 
 @RunWith(MockitoJUnitRunner.Silent.class)
