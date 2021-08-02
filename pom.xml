@@ -27,7 +27,7 @@
 		<spring-cloud.version>Greenwich.SR3</spring-cloud.version>
 		<guava.version>23.0</guava.version>
 		<semver.version>0.9.0</semver.version>
-		<commons-compress.version>1.19</commons-compress.version>
+		<commons-compress.version>1.21</commons-compress.version>
 
 		<docker.plugin.version>0.31.0</docker.plugin.version>
 		<docker.baseImage>openjdk:12-jdk</docker.baseImage>
